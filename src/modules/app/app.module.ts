@@ -10,6 +10,7 @@ import { AuthModule } from "../auth/auth.module";
 import { ProfileModule } from "../profile/profile.module";
 import { WinstonModule } from "../winston/winston.module";
 import { AccessControlModule } from "nest-access-control";
+import { ChatModule } from "../chat/chat.module";
 import { roles } from "./app.roles";
 
 @Module({
@@ -65,6 +66,7 @@ import { roles } from "./app.roles";
     ConfigModule,
     AuthModule,
     ProfileModule,
+    ChatModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -38,24 +38,22 @@ export class ConfigService {
      * A schema to validate envConfig against
      */
     const envVarsSchema: joi.ObjectSchema = joi.object({
-      APP_ENV: joi
-        .string()
-        .valid("dev", "prod")
-        .default("dev"),
+      APP_ENV: joi.string().valid("dev", "prod").default("dev"),
       APP_URL: joi.string().uri({
         scheme: [/https?/],
       }),
       WEBTOKEN_SECRET_KEY: joi.string().required(),
       WEBTOKEN_EXPIRATION_TIME: joi.number().default(1800),
       DB_URL: joi.string().regex(/^mongodb/),
+      PORT: joi.number().default(9000),
+      WEBSOCKET_PORT: joi.number().default(9001),
     });
 
     /**
      * Represents the status of validation check on the configuration file
      */
-    const { error, value: validatedEnvConfig } = envVarsSchema.validate(
-      envConfig,
-    );
+    const { error, value: validatedEnvConfig } =
+      envVarsSchema.validate(envConfig);
     if (error) {
       throw new Error(`Config validation error: ${error.message}`);
     }
@@ -69,6 +67,21 @@ export class ConfigService {
    */
   get(key: string): string {
     return this.envConfig[key];
+  }
+  /**
+   * Gets the port number from the configuration file
+   * @returns {number} the port number
+   */
+  getPort(): number {
+    return parseInt(this.envConfig.PORT, 10);
+  }
+
+  /**
+   * Gets the WebSocket port number from the configuration file
+   * @returns {number} the WebSocket port number
+   */
+  getWebSocketPort(): number {
+    return parseInt(this.envConfig.WEBSOCKET_PORT, 10);
   }
 
   /**
