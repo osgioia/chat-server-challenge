@@ -39,6 +39,7 @@ import { WsAdapter } from '@nestjs/platform-ws';
   // Crear y configurar el servidor WebSocket en el puerto 3001
   const wsApp = await NestFactory.create(AppModule, new FastifyAdapter());
   wsApp.useWebSocketAdapter(new WsAdapter(wsApp));
-  await wsApp.listen(3001);
-  console.log('WebSocket server is running on port 3001');
+  const wsPort =configService.getWebSocketPort()
+  await wsApp.listen(wsPort);
+  console.log(`WebSocket server is running on port ${wsPort}`);
 })();

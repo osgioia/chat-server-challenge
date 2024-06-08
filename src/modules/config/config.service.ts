@@ -45,7 +45,8 @@ export class ConfigService {
       WEBTOKEN_SECRET_KEY: joi.string().required(),
       WEBTOKEN_EXPIRATION_TIME: joi.number().default(1800),
       DB_URL: joi.string().regex(/^mongodb/),
-      PORT: joi.number().default(9000)
+      PORT: joi.number().default(9000),
+      WEBSOCKET_PORT: joi.number().default(9001)
     });
 
     /**
@@ -73,6 +74,14 @@ export class ConfigService {
    */
   getPort(): number {
     return parseInt(this.envConfig.PORT, 10);
+  }
+
+  /**
+   * Gets the port number from the configuration file
+   * @returns {number} the port number
+   */
+  getWebSocketPort(): number {
+    return parseInt(this.envConfig.WEBSOCKET_PORT, 10);
   }
 
   /**
