@@ -8,7 +8,6 @@ import { ValidationPipe } from "@nestjs/common";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { ConfigService } from "./modules/config/config.service";
 import { WINSTON_MODULE_PROVIDER } from "./modules/winston/winston.constants";
-import { WsAdapter } from '@nestjs/platform-ws';
 
 (async () => {
   // Crear la aplicación principal en el puerto 9000
@@ -36,10 +35,8 @@ import { WsAdapter } from '@nestjs/platform-ws';
   const logger = app.get(WINSTON_MODULE_PROVIDER);
   logger.log("info", `REST server is running on port ${port}`);
 
-  // Crear y configurar el servidor WebSocket en el puerto 3001
-  const wsApp = await NestFactory.create(AppModule, new FastifyAdapter());
-  wsApp.useWebSocketAdapter(new WsAdapter(wsApp));
   const wsPort =configService.getWebSocketPort()
-  await wsApp.listen(wsPort);
+
   console.log(`WebSocket server is running on port ${wsPort}`);
-})();
+
+  })();
