@@ -80,7 +80,6 @@ export class ProfileService {
         "The account with the provided username currently exists. Please choose another one.",
       );
     }
-    // this will auto assign the admin role to each created user
     const createdProfile = new this.profileModel({
       ...payload,
       password: crypto.createHmac("sha256", payload.password).digest("hex"),
@@ -114,7 +113,6 @@ export class ProfileService {
     }
     return this.getByUsername(username);
   }
- 
 
   /**
    * Delete profile given a username
@@ -122,7 +120,7 @@ export class ProfileService {
    * @returns {Promise<IGenericMessageBody>} whether or not the crud operation was completed
    */
   delete(username: string): Promise<IGenericMessageBody> {
-    return this.profileModel.deleteOne({ username }).then(profile => {
+    return this.profileModel.deleteOne({ username }).then((profile) => {
       if (profile.deletedCount === 1) {
         return { message: `Deleted ${username} from records` };
       } else {

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #messages {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat App</h1>
+    <div id="messages">
+        <h2>Messages:</h2>
+    </div>
+    <input type="text" id="sender" placeholder="Your name">
+    <input type="text" id="content" placeholder="Send message">
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="pingServer()">Ping</button>
+
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        const socket = io('http://localhost:9001', {
+            transports: ['websocket'],
+        });
+
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
+
+        // Listener para mensajes recibidos desde el servidor
+        socket.on('message', (message) => {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += `<p><strong>${message.sender}</strong>: ${message.content}</p>`;
+        });
+
+        socket.on('pong', (data) => {
+            console.log('Received pong:', data);
+        });
+
+        function sendMessage() {
+            const sender = document.getElementById('sender').value;
+            const content = document.getElementById('content').value;
+            socket.emit('messages', { sender, content });
+        }
+
+        function pingServer() {
+            console.log('Sending ping');
+            socket.emit('ping');
+        }
+    </script>
+</body>
+</html>

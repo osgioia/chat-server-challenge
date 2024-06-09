@@ -5,14 +5,16 @@ import { Message } from "./message.model";
 
 @Injectable()
 export class MessageService {
-    constructor(@InjectModel(Message.name) private messageModel: Model<Message>) {}
+  constructor(
+    @InjectModel(Message.name) private messageModel: Model<Message>,
+  ) {}
 
-    async create(sender: string, content: string): Promise<Message> {
-        const createMessage = new this.messageModel({sender, content})
-        return createMessage.save()
-    }
+  async create(sender: string, content: string): Promise<Message> {
+    const createMessage = new this.messageModel({ sender, content });
+    return createMessage.save();
+  }
 
-    async findAll(): Promise<Message[]> {
-        return this.messageModel.find().exec()
-    }
+  async findAll(): Promise<Message[]> {
+    return this.messageModel.find().exec();
+  }
 }

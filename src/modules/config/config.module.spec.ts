@@ -1,8 +1,8 @@
-import { Test } from '@nestjs/testing';
-import { ConfigModule } from './config.module';
-import { ConfigService } from './config.service';
+import { Test } from "@nestjs/testing";
+import { ConfigModule } from "./config.module";
+import { ConfigService } from "./config.service";
 
-describe('ConfigModule', () => {
+describe("ConfigModule", () => {
   let configService: ConfigService;
 
   beforeEach(async () => {
@@ -13,16 +13,16 @@ describe('ConfigModule', () => {
     configService = moduleRef.get<ConfigService>(ConfigService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(configService).toBeDefined();
   });
 
-  it('should provide ConfigService', () => {
+  it("should provide ConfigService", () => {
     expect(configService).toBeInstanceOf(ConfigService);
   });
 
-  it('should have loaded .env file', () => {
-    const value = configService.get('PORT');
+  it("should have loaded .env file", () => {
+    const value = configService.get("PORT");
     expect(value).toBeDefined();
   });
 });

@@ -15,7 +15,6 @@ describe("Winston Module", () => {
 
   it("boots successfully asynchronously", async () => {
     @Injectable()
-    // @ts-ignore
     class ConfigService {
       public loggerOptions = {};
     }
@@ -24,7 +23,6 @@ describe("Winston Module", () => {
       providers: [ConfigService],
       exports: [ConfigService],
     })
-    // @ts-ignore
     class FeatureModule {}
 
     const rootModule = await Test.createTestingModule({

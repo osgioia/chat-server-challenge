@@ -66,7 +66,7 @@ import { roles } from "./app.roles";
     ConfigModule,
     AuthModule,
     ProfileModule,
-    ChatModule
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -46,7 +46,7 @@ export class ConfigService {
       WEBTOKEN_EXPIRATION_TIME: joi.number().default(1800),
       DB_URL: joi.string().regex(/^mongodb/),
       PORT: joi.number().default(9000),
-      WEBSOCKET_PORT: joi.number().default(9001)
+      WEBSOCKET_PORT: joi.number().default(9001),
     });
 
     /**

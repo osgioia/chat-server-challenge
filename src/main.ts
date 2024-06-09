@@ -10,7 +10,6 @@ import { ConfigService } from "./modules/config/config.service";
 import { WINSTON_MODULE_PROVIDER } from "./modules/winston/winston.constants";
 
 (async () => {
-  // Crear la aplicación principal en el puerto 9000
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({ logger: true }),
@@ -28,15 +27,13 @@ import { WINSTON_MODULE_PROVIDER } from "./modules/winston/winston.constants";
   SwaggerModule.setup("api/docs", app, document);
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
-  
-  // Iniciar la aplicación principal en el puerto 9000
+
   await app.listen(port, "0.0.0.0");
 
   const logger = app.get(WINSTON_MODULE_PROVIDER);
   logger.log("info", `REST server is running on port ${port}`);
 
-  const wsPort =configService.getWebSocketPort()
+  const wsPort = configService.getWebSocketPort();
 
-  console.log(`WebSocket server is running on port ${wsPort}`);
-
-  })();
+  logger.log("info",`WebSocket server is running on port ${wsPort}`);
+})();
