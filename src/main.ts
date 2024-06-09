@@ -8,8 +8,10 @@ import { ValidationPipe } from "@nestjs/common";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { ConfigService } from "./modules/config/config.service";
 import { WINSTON_MODULE_PROVIDER } from "./modules/winston/winston.constants";
+import { ClusterService } from './modules/cluster/cluster.service';
 
-(async () => {
+
+async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({ logger: true }),
@@ -36,4 +38,5 @@ import { WINSTON_MODULE_PROVIDER } from "./modules/winston/winston.constants";
   const wsPort = configService.getWebSocketPort();
 
   logger.log("info",`WebSocket server is running on port ${wsPort}`);
-})();
+};
+ClusterService.clusterize(bootstrap);
