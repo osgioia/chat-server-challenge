@@ -4,6 +4,7 @@ services:
     container_name: nest
     build: .
     ports:
+      - "9000:9000"
       - "9001:9001"
     volumes:
       - .:/app
@@ -13,7 +14,7 @@ services:
     image: mongo:latest
     container_name: mongo
     ports:
-      - "80:80"
+      - "27017:27017"
     environment:
       MONGO_INITDB_DATABASE: nest
     volumes:
