@@ -1,4 +1,4 @@
-FROM node:carbon
+FROM node:18-alpine
 # App directory
 WORKDIR /app
 
